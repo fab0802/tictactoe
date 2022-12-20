@@ -2,6 +2,7 @@
   --board-side-length: 25rem;
   --bg-color: hsl(0, 0%, 100%);
   --color-black: hsl(0, 0%, 16%);
+  --color-green: hsl(114, 100%, 90%);
   --img-side-length: 4rem;
 }
 
@@ -37,12 +38,17 @@ body {
   padding-top: 0.5rem;
 }
 
-.players-board img {
+.players-board .players {
   padding-top: 0.25rem;
+  opacity: 0.5;
+}
+
+.players-board .players.next {
+  opacity: 1;
 }
 
 img,
-.players-board img {
+.players-board .players {
   width: var(--img-side-length);
   height: var(--img-side-length);
 }
@@ -66,9 +72,8 @@ img,
   align-items: center;
 }
 
-.board-box:hover {
-  background: hsl(114, 100%, 90%);
-  background: red;
+.game-board-box:hover {
+  background: var(--color-green);
 }
 
 .btn-board {
@@ -87,5 +92,5 @@ img,
 
 .btn-board div:hover,
 .btn-board .selected {
-  background: hsla(0, 0%, 16%, 0.357);
+  background: var(--color-green);
 }
