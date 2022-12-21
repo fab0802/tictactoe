@@ -19,26 +19,68 @@
   </head>
   <body>
     <div class="players-board">
-      <div class="score-player1" id="score-player1">1</div>
-      <div class="players player1 next"><img src="./img/cross.png" /></div>
-      <div class="players player2"><img src="./img/circle.png" /></div>
-      <div class="score-player2" id="score-player2">2</div>
+      <div class="score-player-cross" id="score-player-cross">1</div>
+      <div class="players player-cross next" id="player-cross-img">
+        <img src="./img/cross.png" />
+      </div>
+      <div class="players player-circle" id="player-circle-img">
+        <img src="./img/circle.png" />
+      </div>
+      <div class="score-player-circle" id="score-player-circle">2</div>
     </div>
     <div class="game-board">
-      <div class="game-board-box"><img src="./img/circle.png" /></div>
-      <div class="game-board-box"><img src="./img/cross.png" /></div>
-      <div class="game-board-box"></div>
-      <div class="game-board-box"></div>
-      <div class="game-board-box"></div>
-      <div class="game-board-box"></div>
-      <div class="game-board-box"></div>
-      <div class="game-board-box"></div>
-      <div class="game-board-box"></div>
+      <div
+        class="game-board-box"
+        id="game-board-box-0"
+        onclick="setBox(0)"
+      ></div>
+      <div
+        class="game-board-box"
+        id="game-board-box-1"
+        onclick="setBox(1)"
+      ></div>
+      <div
+        class="game-board-box"
+        id="game-board-box-2"
+        onclick="setBox(2)"
+      ></div>
+      <div
+        class="game-board-box"
+        id="game-board-box-3"
+        onclick="setBox(3)"
+      ></div>
+      <div
+        class="game-board-box"
+        id="game-board-box-4"
+        onclick="setBox(4)"
+      ></div>
+      <div
+        class="game-board-box"
+        id="game-board-box-5"
+        onclick="setBox(5)"
+      ></div>
+      <div
+        class="game-board-box"
+        id="game-board-box-6"
+        onclick="setBox(6)"
+      ></div>
+      <div
+        class="game-board-box"
+        id="game-board-box-7"
+        onclick="setBox(7)"
+      ></div>
+      <div
+        class="game-board-box"
+        id="game-board-box-8"
+        onclick="setBox(8)"
+      ></div>
     </div>
     <div class="btn-board">
-      <div id="new-game">new game</div>
-      <div class="selected" id="1-player">1 player</div>
-      <div id="2-players">2 player</div>
+      <div id="btn-new-game">new game</div>
+      <div id="btn-1-player" onclick="setOnePlayer()">1 player</div>
+      <div class="selected" id="btn-2-players" onclick="setTwoPlayers()">
+        2 player
+      </div>
     </div>
     <script src="script.js"></script>
   </body>
