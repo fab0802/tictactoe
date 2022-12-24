@@ -3,6 +3,7 @@
   --bg-color: hsl(0, 0%, 100%);
   --color-black: hsl(0, 0%, 16%);
   --color-green: hsl(114, 100%, 90%);
+  --color-winner: hsl(114, 100%, 40%);
   --img-side-length: 4rem;
 }
 
@@ -74,6 +75,26 @@ img,
 
 .game-board-box:hover {
   background: var(--color-green);
+}
+
+.game-board-box.winner-box {
+  background: var(--color-green);
+  /* transition: background 200ms ease-in-out; */
+  animation: blink 0.5s;
+}
+
+@keyframes blink {
+  33% {
+    background-color: var(--color-winner);
+  }
+
+  66% {
+    background-color: var(--color-green);
+  }
+
+  100% {
+    background-color: var(--color-winner);
+  }
 }
 
 .btn-board {

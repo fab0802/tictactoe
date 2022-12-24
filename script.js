@@ -69,6 +69,7 @@ function checkForWin() {
       console.log(`we have a winner: ${boxes[a]}`);
       gameIsRunning = false;
       boxes[a] === "cross" ? scoreCross++ : scoreCircle++;
+      setWinnerStyle(a, b, c);
       gameOver();
     }
   }
@@ -89,7 +90,8 @@ function gameOver() {
   setTimeout(() => {
     renderScore();
     resetBoard();
-  }, 2000);
+    removeWinnerStyle();
+  }, 3000);
 }
 
 function resetBoard() {
@@ -117,6 +119,19 @@ function startNewGame() {
   renderScore();
   resetBoard();
   setCrossAsNext();
+}
+
+function setWinnerStyle(...winnerRow) {
+  for (let box of winnerRow) {
+    const boxElement = document.querySelector(`#game-board-box-${box}`);
+    boxElement.classList.add("winner-box");
+  }
+}
+
+function removeWinnerStyle() {
+  for (let boxElement of boardBoxes) {
+    boxElement.classList.remove("winner-box");
+  }
 }
 
 function setOnePlayer() {
