@@ -20,25 +20,20 @@ const winningRows = [
   [0, 4, 8],
   [2, 4, 6],
 ];
+let boxes = [];
 let scoreCross = 0;
 let scoreCircle = 0;
-let boxes = [];
 let isCrossNext = true;
 let twoPlayers = true;
 let round = 1;
-
-function startNewGame() {
-  scoreCross = 0;
-  scoreCircle = 0;
-  resetScore();
-  resetBoard();
-  setCrossAsNext();
-}
+let gameIsRunning = true;
 
 function setBox(box) {
-  if (boardBoxes[box].innerHTML === "")
+  if (boardBoxes[box].innerHTML === "" && gameIsRunning) {
     isCrossNext ? setCross(box) : setCircle(box);
-  checkWinner(box);
+    checkForWin();
+    checkForDraw();
+  }
 }
 
 function setCross(box) {
@@ -65,25 +60,54 @@ function setCircleAsNext() {
   playerCircleImg.classList.add("next");
 }
 
-function checkWinner(box) {
-  console.log(box);
+function checkForWin() {
+  for (let i = 0; i < winningRows.length; i++) {
+    const [a, b, c] = winningRows[i];
+    if (boxes[a] && boxes[a] === boxes[b] && boxes[a] === boxes[c]) {
+      console.log(`we have a winner: ${boxes[a]}`);
+      gameIsRunning = false;
+      gameOver(boxes[a]);
+    }
+  }
+}
+
+function checkForDraw() {
+  let crossCounter = boxes.filter((element) => element === "cross").length;
+  let circleCounter = boxes.filter((element) => element === "circle").length;
+  if (crossCounter > 4 || circleCounter > 4) {
+    setTimeout(() => {
+      resetBoard();
+    }, 2000);
+  }
 }
 
 function gameOver() {
-  resetBoard();
   round++;
   round % 2 === 0 ? setCircleAsNext() : setCrossAsNext();
+  setTimeout(() => {
+    resetBoard();
+  }, 2000);
 }
 
 function resetBoard() {
   for (let box of boardBoxes) {
     box.innerHTML = "";
   }
+  boxes = [];
+  gameIsRunning = true;
 }
 
 function resetScore() {
   playerCrossScore.innerHTML = scoreCross;
   playerCircleScore.innerHTML = scoreCircle;
+}
+
+function startNewGame() {
+  scoreCross = 0;
+  scoreCircle = 0;
+  resetScore();
+  resetBoard();
+  setCrossAsNext();
 }
 
 function setOnePlayer() {
