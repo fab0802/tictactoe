@@ -25,6 +25,7 @@ let scoreCircle = 0;
 let boxes = [];
 let isCrossNext = true;
 let twoPlayers = true;
+let round = 1;
 
 function startNewGame() {
   scoreCross = 0;
@@ -66,6 +67,12 @@ function setCircleAsNext() {
 
 function checkWinner(box) {
   console.log(box);
+}
+
+function gameOver() {
+  resetBoard();
+  round++;
+  round % 2 === 0 ? setCircleAsNext() : setCrossAsNext();
 }
 
 function resetBoard() {
