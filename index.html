@@ -19,14 +19,14 @@
   </head>
   <body>
     <div class="players-board">
-      <div class="score-player-cross" id="score-player-cross">1</div>
+      <div class="score-player-cross" id="score-player-cross">0</div>
       <div class="players player-cross next" id="player-cross-img">
         <img src="./img/cross.png" />
       </div>
       <div class="players player-circle" id="player-circle-img">
         <img src="./img/circle.png" />
       </div>
-      <div class="score-player-circle" id="score-player-circle">2</div>
+      <div class="score-player-circle" id="score-player-circle">0</div>
     </div>
     <div class="game-board">
       <div
@@ -76,10 +76,10 @@
       ></div>
     </div>
     <div class="btn-board">
-      <div id="btn-new-game">new game</div>
-      <div id="btn-1-player" onclick="setOnePlayer()">1 player</div>
-      <div class="selected" id="btn-2-players" onclick="setTwoPlayers()">
-        2 player
+      <div id="btn-new-game" onclick="(startNewGame())">new game</div>
+      <div id="btn-one-player" onclick="setOnePlayer()">1 player</div>
+      <div class="selected" id="btn-two-players" onclick="setTwoPlayers()">
+        2 players
       </div>
     </div>
     <script src="script.js"></script>
