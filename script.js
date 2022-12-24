@@ -4,8 +4,10 @@ const cross = '<img src="./img/cross.png" />';
 const circle = '<img src="./img/circle.png" />';
 const playerCrossImg = document.querySelector("#player-cross-img");
 const playerCircleImg = document.querySelector("#player-circle-img");
-const playerCrossScore = document.querySelector("#score-player-cross");
-const playerCircleScore = document.querySelector("#score-player-circle");
+const playerCrossScoreContainer = document.querySelector("#score-player-cross");
+const playerCircleScoreContainer = document.querySelector(
+  "#score-player-circle"
+);
 const boardBoxes = document.querySelectorAll(".game-board-box");
 const btnNewGame = document.querySelector("#btn-new-game");
 const btnSetOnePlayer = document.querySelector("#btn-one-player");
@@ -66,7 +68,8 @@ function checkForWin() {
     if (boxes[a] && boxes[a] === boxes[b] && boxes[a] === boxes[c]) {
       console.log(`we have a winner: ${boxes[a]}`);
       gameIsRunning = false;
-      gameOver(boxes[a]);
+      boxes[a] === "cross" ? scoreCross++ : scoreCircle++;
+      gameOver();
     }
   }
 }
@@ -75,9 +78,8 @@ function checkForDraw() {
   let crossCounter = boxes.filter((element) => element === "cross").length;
   let circleCounter = boxes.filter((element) => element === "circle").length;
   if (crossCounter > 4 || circleCounter > 4) {
-    setTimeout(() => {
-      resetBoard();
-    }, 2000);
+    console.log("we have a draw");
+    gameOver();
   }
 }
 
@@ -85,6 +87,7 @@ function gameOver() {
   round++;
   round % 2 === 0 ? setCircleAsNext() : setCrossAsNext();
   setTimeout(() => {
+    renderScore();
     resetBoard();
   }, 2000);
 }
@@ -95,17 +98,23 @@ function resetBoard() {
   }
   boxes = [];
   gameIsRunning = true;
+  renderScore();
+}
+
+function renderScore() {
+  playerCrossScoreContainer.innerHTML = scoreCross;
+  playerCircleScoreContainer.innerHTML = scoreCircle;
 }
 
 function resetScore() {
-  playerCrossScore.innerHTML = scoreCross;
-  playerCircleScore.innerHTML = scoreCircle;
+  scoreCross = 0;
+  scoreCircle = 0;
+  renderScore();
 }
 
 function startNewGame() {
-  scoreCross = 0;
-  scoreCircle = 0;
   resetScore();
+  renderScore();
   resetBoard();
   setCrossAsNext();
 }
