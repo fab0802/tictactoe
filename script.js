@@ -33,11 +33,9 @@ let round = 1;
 let gameIsRunning = true;
 
 function setBox(box) {
-  if (boardBoxes[box].innerHTML === "" && gameIsRunning) {
+  if (boardBoxes[box].innerHTML === "" && gameIsRunning)
     isCrossNext ? setCross(box) : setCircle(box);
-    checkForWin();
-    checkForDraw();
-  }
+  if (checkGameOver()) gameOver();
   checkIfComputerIsNext();
   oCounter = 0;
 }
@@ -58,26 +56,27 @@ function setCrossAsNext() {
   isCrossNext = true;
   playerCircleImg.classList.remove("next");
   playerCrossImg.classList.add("next");
-  // console.log(`cross is next: ${isCrossNext}`);
 }
 
 function setCircleAsNext() {
   isCrossNext = false;
   playerCrossImg.classList.remove("next");
   playerCircleImg.classList.add("next");
-  // console.log(`circle is next: ${!isCrossNext}`);
+}
+
+function checkGameOver() {
+  if (checkForWin()) return true;
+  if (checkForDraw()) return true;
 }
 
 function checkForWin() {
   for (let i = 0; i < winningRows.length; i++) {
     const [a, b, c] = winningRows[i];
     if (boxes[a] && boxes[a] === boxes[b] && boxes[a] === boxes[c]) {
-      console.log(`we have a winner: ${boxes[a]}`);
       gameIsRunning = false;
       boxes[a] === "cross" ? scoreCross++ : scoreCircle++;
       setWinnerStyle(a, b, c);
-      gameOver();
-      return;
+      return true;
     }
   }
 }
@@ -86,9 +85,8 @@ function checkForDraw() {
   let crossCounter = boxes.filter((element) => element === "cross").length;
   let circleCounter = boxes.filter((element) => element === "circle").length;
   if (crossCounter > 4 || circleCounter > 4) {
-    console.log("we have a draw");
     gameIsRunning = false;
-    gameOver();
+    return true;
   }
 }
 
@@ -100,11 +98,7 @@ function gameOver() {
     resetBoard();
     removeWinnerStyle();
     checkIfComputerIsNext();
-    console.log(`this is round ${round}`);
-    isCrossNext
-      ? console.log("starter is cross")
-      : console.log("starter is circle");
-  }, 2500);
+  }, 1500);
 }
 
 function resetBoard() {
@@ -168,22 +162,15 @@ function setTwoPlayers() {
 // AI part
 
 function checkIfComputerIsNext() {
-  // console.log(
-  //   `not twoPlayers: ${!twoPlayers}, gameIsRunning: ${gameIsRunning}, not isCrossNext: ${!isCrossNext}`
-  // );
   if (!twoPlayers && gameIsRunning && !isCrossNext) {
     setTimeout(() => {
       setBoxComputer();
-    }, 1);
+    }, 500);
   }
 }
 
 function setBoxComputer() {
   oCounter++;
-  console.log(`how much in a row was circle next: ${oCounter}`);
-  if (oCounter > 2) {
-    console.log("oCounter is too big!");
-  }
   if (checkIfComputerCanWin()) {
     setCircle(checkIfComputerCanWin());
   } else if (checkIfComputerCanPreventWinForUser()) {
@@ -192,8 +179,7 @@ function setBoxComputer() {
     const emptyBox = getEmptyBox();
     setCircle(emptyBox);
   }
-  checkForWin();
-  checkForDraw();
+  if (checkGameOver()) gameOver();
 }
 
 function getEmptyBox() {
