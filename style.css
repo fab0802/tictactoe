@@ -48,6 +48,10 @@ body {
   opacity: 1;
 }
 
+.players-board .score {
+  color: var(--color-winner);
+}
+
 img,
 .players-board .players {
   width: var(--img-side-length);
