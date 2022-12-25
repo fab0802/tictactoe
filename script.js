@@ -1,5 +1,7 @@
 "use strict";
 
+let oCounter = 0;
+
 const cross = '<img src="./img/cross.png" />';
 const circle = '<img src="./img/circle.png" />';
 const playerCrossImg = document.querySelector("#player-cross-img");
@@ -36,6 +38,8 @@ function setBox(box) {
     checkForWin();
     checkForDraw();
   }
+  checkIfComputerIsNext();
+  oCounter = 0;
 }
 
 function setCross(box) {
@@ -54,12 +58,14 @@ function setCrossAsNext() {
   isCrossNext = true;
   playerCircleImg.classList.remove("next");
   playerCrossImg.classList.add("next");
+  // console.log(`cross is next: ${isCrossNext}`);
 }
 
 function setCircleAsNext() {
   isCrossNext = false;
   playerCrossImg.classList.remove("next");
   playerCircleImg.classList.add("next");
+  // console.log(`circle is next: ${!isCrossNext}`);
 }
 
 function checkForWin() {
@@ -71,6 +77,7 @@ function checkForWin() {
       boxes[a] === "cross" ? scoreCross++ : scoreCircle++;
       setWinnerStyle(a, b, c);
       gameOver();
+      return;
     }
   }
 }
@@ -80,6 +87,7 @@ function checkForDraw() {
   let circleCounter = boxes.filter((element) => element === "circle").length;
   if (crossCounter > 4 || circleCounter > 4) {
     console.log("we have a draw");
+    gameIsRunning = false;
     gameOver();
   }
 }
@@ -91,7 +99,12 @@ function gameOver() {
     renderScore();
     resetBoard();
     removeWinnerStyle();
-  }, 3000);
+    checkIfComputerIsNext();
+    console.log(`this is round ${round}`);
+    isCrossNext
+      ? console.log("starter is cross")
+      : console.log("starter is circle");
+  }, 2500);
 }
 
 function resetBoard() {
@@ -136,22 +149,81 @@ function removeWinnerStyle() {
 
 function setOnePlayer() {
   if (twoPlayers) {
-    console.log("setOnePlayer");
     twoPlayers = false;
     btnSetOnePlayer.classList.add("selected");
     btnSetTwoPlayers.classList.remove("selected");
-    resetBoard();
-    resetScore();
+    startNewGame();
   }
 }
 
 function setTwoPlayers() {
   if (!twoPlayers) {
-    console.log("setTwoPlayer");
     twoPlayers = true;
     btnSetTwoPlayers.classList.add("selected");
     btnSetOnePlayer.classList.remove("selected");
-    resetBoard();
-    resetScore();
+    startNewGame();
   }
+}
+
+// AI part
+
+function checkIfComputerIsNext() {
+  // console.log(
+  //   `not twoPlayers: ${!twoPlayers}, gameIsRunning: ${gameIsRunning}, not isCrossNext: ${!isCrossNext}`
+  // );
+  if (!twoPlayers && gameIsRunning && !isCrossNext) {
+    setTimeout(() => {
+      setBoxComputer();
+    }, 1);
+  }
+}
+
+function setBoxComputer() {
+  oCounter++;
+  console.log(`how much in a row was circle next: ${oCounter}`);
+  if (oCounter > 2) {
+    console.log("oCounter is too big!");
+  }
+  if (checkIfComputerCanWin()) {
+    setCircle(checkIfComputerCanWin());
+  } else if (checkIfComputerCanPreventWinForUser()) {
+    setCircle(checkIfComputerCanPreventWinForUser());
+  } else {
+    const emptyBox = getEmptyBox();
+    setCircle(emptyBox);
+  }
+  checkForWin();
+  checkForDraw();
+}
+
+function getEmptyBox() {
+  let box = getRandomNumber();
+  while (boxes[box] === "cross" || boxes[box] === "circle") {
+    box = getRandomNumber();
+  }
+  return box;
+}
+
+function getRandomNumber() {
+  return Math.floor(Math.random() * 9);
+}
+
+function checkIfComputerCanWin() {
+  for (let i = 0; i < winningRows.length; i++) {
+    const [a, b, c] = winningRows[i];
+    if (!boxes[a] && boxes[b] === "circle" && boxes[c] === "circle") return a;
+    if (!boxes[b] && boxes[a] === "circle" && boxes[c] === "circle") return b;
+    if (!boxes[c] && boxes[a] === "circle" && boxes[b] === "circle") return c;
+  }
+  return false;
+}
+
+function checkIfComputerCanPreventWinForUser() {
+  for (let i = 0; i < winningRows.length; i++) {
+    const [a, b, c] = winningRows[i];
+    if (!boxes[a] && boxes[b] === "cross" && boxes[c] === "cross") return a;
+    if (!boxes[b] && boxes[a] === "cross" && boxes[c] === "cross") return b;
+    if (!boxes[c] && boxes[a] === "cross" && boxes[b] === "cross") return c;
+  }
+  return false;
 }
