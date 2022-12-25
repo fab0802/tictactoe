@@ -49,8 +49,11 @@ body {
 }
 
 .players-board .score {
+  min-width: 20%;
   color: var(--color-black);
   font-family: "Tourney", cursive;
+  display: flex;
+  justify-content: center;
 }
 
 img,
@@ -84,7 +87,6 @@ img,
 
 .game-board-box.winner-box {
   background: var(--color-green);
-  /* transition: background 200ms ease-in-out; */
   animation: blink 0.5s;
 }
 
