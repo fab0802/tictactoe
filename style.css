@@ -1,7 +1,7 @@
 :root {
   --board-side-length: 25rem;
   --bg-color: hsl(0, 0%, 100%);
-  --color-black: hsl(0, 0%, 16%);
+  --color-black: hsl(0, 0%, 20%);
   --color-green: hsl(114, 100%, 90%);
   --color-winner: hsl(114, 100%, 40%);
   --img-side-length: 4rem;
@@ -20,7 +20,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -49,7 +49,8 @@ body {
 }
 
 .players-board .score {
-  color: var(--color-winner);
+  color: var(--color-black);
+  font-family: "Tourney", cursive;
 }
 
 img,
@@ -112,7 +113,7 @@ img,
   width: 25%;
   text-align: center;
   padding: 0.5rem;
-  border: 1px solid;
+  border: 1px solid var(--color-black);
 }
 
 .btn-board div:hover,
