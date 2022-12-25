@@ -122,3 +122,9 @@ img,
 .btn-board .selected {
   background: var(--color-green);
 }
+
+@media (max-width: 30rem) {
+  :root {
+    --board-side-length: 19rem;
+  }
+}
