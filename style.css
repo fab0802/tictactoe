@@ -85,7 +85,8 @@ img,
   background: var(--color-green);
 }
 
-.game-board-box.winner-box {
+.game-board-box.winner-box,
+.game-board-box.winner-box:hover {
   background: var(--color-green);
   animation: blink 0.5s;
 }
