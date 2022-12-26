@@ -92,11 +92,19 @@ img,
 }
 
 @keyframes blink {
-  33% {
+  20% {
     background-color: var(--color-winner);
   }
 
-  66% {
+  40% {
+    background-color: var(--color-green);
+  }
+
+  60% {
+    background-color: var(--color-winner);
+  }
+
+  80% {
     background-color: var(--color-green);
   }
 

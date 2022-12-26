@@ -76,6 +76,7 @@ function checkForWin() {
       gameIsRunning = false;
       boxes[a] === "cross" ? scoreCross++ : scoreCircle++;
       setWinnerStyle(a, b, c);
+      playWinnerSound();
       return true;
     }
   }
@@ -139,6 +140,11 @@ function removeWinnerStyle() {
   for (let boxElement of boardBoxes) {
     boxElement.classList.remove("winner-box");
   }
+}
+
+function playWinnerSound() {
+  const audio = new Audio("sound/winner.mp3");
+  audio.play();
 }
 
 function setOnePlayer() {
