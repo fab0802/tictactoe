@@ -75,8 +75,8 @@ function checkForWin() {
     if (boxes[a] && boxes[a] === boxes[b] && boxes[a] === boxes[c]) {
       gameIsRunning = false;
       boxes[a] === "cross" ? scoreCross++ : scoreCircle++;
+      // playWinnerSound();
       setWinnerStyle(a, b, c);
-      playWinnerSound();
       return true;
     }
   }
