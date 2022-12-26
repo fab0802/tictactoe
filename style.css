@@ -127,4 +127,8 @@ img,
   :root {
     --board-side-length: 19rem;
   }
+
+  .game-board-box:hover {
+    background: var(--bg-color);
+  }
 }
