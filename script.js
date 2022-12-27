@@ -1,7 +1,5 @@
 "use strict";
 
-let oCounter = 0;
-
 const cross = '<img src="./img/cross.png" />';
 const circle = '<img src="./img/circle.png" />';
 const playerCrossImg = document.querySelector("#player-cross-img");
@@ -33,11 +31,11 @@ let round = 1;
 let gameIsRunning = true;
 
 function setBox(box) {
+  if (!twoPlayers && !isCrossNext) return;
   if (boardBoxes[box].innerHTML === "" && gameIsRunning)
     isCrossNext ? setCross(box) : setCircle(box);
   if (checkGameOver()) gameOver();
   checkIfComputerIsNext();
-  oCounter = 0;
 }
 
 function setCross(box) {
@@ -176,7 +174,6 @@ function checkIfComputerIsNext() {
 }
 
 function setBoxComputer() {
-  oCounter++;
   if (checkIfComputerCanWin()) {
     setCircle(checkIfComputerCanWin());
   } else if (checkIfComputerCanPreventWinForUser()) {
